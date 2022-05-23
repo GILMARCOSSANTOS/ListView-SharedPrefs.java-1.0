@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText etTaskEntry;
     private RecyclerView recyclerView;
     private TaskAdapter adapter;
-
     private List<TaskModel> taskList;
 
     @Override
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         etTaskEntry = findViewById(R.id.et_entry);
 
+
+
         taskList = PrefConfig.readListFromPref(this);
 
         if (taskList == null)
@@ -48,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         adapter = new TaskAdapter(getApplicationContext(), taskList);
         recyclerView.setAdapter(adapter);
-
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
